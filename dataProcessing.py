@@ -5,3 +5,6 @@ noNailPolish = HandInfo[nailPolish] == 0
 noAccessories = HandInfo[accessories] == 0
 noIrregularities = HandInfo[irregularities] == 0
 
+#creating a separate data frame that only includes Hand Info for hands that do not have nail polish, accessories of irregularities
+newHandInfo = HandInfo[noNailPolish] & HandInfo[noAccessories] & HandInfo[noIrregularities]
+
