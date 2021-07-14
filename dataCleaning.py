@@ -29,8 +29,8 @@ for image in imageNameList:
     # used to check whether the specified path (the path is just a parameter, in this case we use image but path can essentially be any object) is an existing regular file or not
     if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
         print("loading images here")
-        # load the image and make the image black and white
-        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96)) #there is a problem with the path that we are using but i can't figure it out
+        # load the image and make the image black and white and resize them so they are all 96x96 pixels
+        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96))
         #Hiiiii is the problem that you need 2 backslashes between each folder?
         # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
         data = asarray(image)
