@@ -9,7 +9,7 @@ import os # help with path from https://careerkarma.com/blog/python-check-if-fil
 from numpy import asarray
 
 #Read hand csv
-Handdf = pd.read_csv(HandInfo - HandInfo.csv')
+Handdf = pd.read_csv('HandInfo - HandInfo.csv')
 
 #We want to filter out accessories and nail polish
 Handdf = Handdf.query('accessories == 0 & nailPolish == 0 & irregularities == 0') #creates a new dataframe
