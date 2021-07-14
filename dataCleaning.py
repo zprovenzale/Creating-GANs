@@ -50,3 +50,4 @@ print("out of while loop")
 # Convert the list of images to an array
 listOfImages = np.asarray(images)
 print(len(listOfImages))
+print("working")
