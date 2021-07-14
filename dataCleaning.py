@@ -30,7 +30,7 @@ for image in imageNameList:
     if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
         print("loading images here")
         # load the image and make the image black and white
-        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L') #there is a problem with the path that we are using but i can't figure it out
+        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96)) #there is a problem with the path that we are using but i can't figure it out
         #Hiiiii is the problem that you need 2 backslashes between each folder?
         # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
         data = asarray(image)
