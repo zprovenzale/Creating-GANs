@@ -52,3 +52,4 @@ listOfImages = np.asarray(images)
 print(len(listOfImages))
 
 print("added friom website to try to pull")
+print("please")
