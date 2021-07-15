@@ -43,51 +43,27 @@ for entry in imageLabelsFull:
 
 
 
-
+#sets the number of images we want to be training
 numTrainingImages = 5000
 
+#makes a list of all the images and labels we use for training. this makes a list of the first 5000 images
 trainingImageNames = imageNameList[:numTrainingImages]
-training_labels = imageLabels[:numTrainingImages]
+trainingLabels = imageLabels[:numTrainingImages]
 
+#makes a list of all the images and labels used for training. this makes a list of the remaining ~2000 images
 testImageNames = imageNameList[numTrainingImages:]
-test_labels = imageLabels[numTrainingImages:]
+testLabels = imageLabels[numTrainingImages:]
 
 
 
+#   FOR LOOP FOR CONVERTING EACH IMAGE
 
-
-# TRAINING LABELS
-
-
-# import data, read into df
-HandInfoData = pd.read_csv("HandInfo - HandInfo.csv")
-
-handInfo = pd.DataFrame(HandInfoData)
-
-#I only imported the first 229 photos
-handInfo = handInfo[0:50]
-
-handLabel = handInfo["aspectOfHand"]
-
-#make array
-training_labels = np.asarray(handLabel)
-
-len(training_labels)
-
-
-
-
-# Note: right now it's imageNameList that's the list of all of the images in the .csv (that weren't filtered out). We need to get it so that there are two for loops, one converting a list of training images and the other converting a list of testing images.
-
-
-
-
-#   WHILE LOOP FOR CONVERTING EACH IMAGE
+#TRAINING IMAGES
 
 # We need a list of the arrays for each image
-images = []
+trainingImages = []
 # i = 0 # If we want to run a subset of images, break after that num is reached
-for image in imageNameList:
+for image in trainingImageNames:
 
     imageName = str(image)
 
@@ -102,7 +78,9 @@ for image in imageNameList:
         #Hiiiii is the problem that you need 2 backslashes between each folder?
         # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
         data = asarray(image)
-        images.append(data)
+        trainingImages.append(data)
+    else:
+        print("wtf")
     
     # IF WE WANT TO ONLY DO A SUBSET
     #iterate in the while loop
@@ -112,12 +90,49 @@ for image in imageNameList:
     #    break
 
 
-# If we want to see any of the images we can run:
-plt.imshow(images[0])
 
-# Convert the list of images to an array
-listOfImages = np.asarray(images)
-print(len(listOfImages))
+# TESTING IMAGES
+
+# We need a list of the arrays for each image
+testImages = []
+# i = 0 # If we want to run a subset of images, break after that num is reached
+for image in testImageNames:
+
+    imageName = str(image)
+
+    # Check if the image exists (some might not for human error reasons) 
+    # used to check whether the specified path (the path is just a parameter, in this case we use image but path can essentially be any object) is an existing regular file or not
+
+    if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
+        print("loading images here")
+
+        # load the image and make the image black and white and resize them so they are all 96x96 pixels
+        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96))
+        #Hiiiii is the problem that you need 2 backslashes between each folder?
+        # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
+        data = asarray(image)
+        testImages.append(data)
+    else:
+        print("wtf")
+    
+    # IF WE WANT TO ONLY DO A SUBSET
+    #iterate in the while loop
+    #i +=1
+
+    #if i >100:
+    #    break
+
+
+
+
+# If we want to see any of the images we can run:
+plt.imshow(testImages[0])
+
+# Convert the lists of images to an array
+trainingImages = np.asarray(trainingImages)
+testImages = np.asarray(testImages)
+print(len(trainingImages))
+print(len(testImages))
 
 # notes on github
 # it wouldn't push and had issues -- solved with https://stackoverflow.com/questions/46175462/vs-code-git-push-is-not-pushing-the-code-to-remote
