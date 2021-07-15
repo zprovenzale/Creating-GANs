@@ -39,12 +39,12 @@ imageLabels = replaceLabel('dorsal left', 1)
 imageLabels = replaceLabel('palmar right', 2)
 imageLabels = replaceLabel('palmar left', 3)
 
-#hi = map(replaceLabel, (('dorsal right', 0), ('dorsal left', 1), ('palmar right', 2), ('palmar left', 3))) #help with map() from https://www.w3schools.com/python/ref_func_map.asp
-#imageLabels = list(hi)
+hi = map(replaceLabel, (('dorsal right', 0), ('dorsal left', 1), ('palmar right', 2), ('palmar left', 3))) #help with map() from https://www.w3schools.com/python/ref_func_map.asp
+imageLabels = list(hi)
 print(imageLabels[0:20])
 
 
-"""
+
 numTrainingImages = 9000
 
 trainingImageNames = imageNameList[:numTrainingImages]
@@ -59,22 +59,21 @@ test_labels = imageLabels[numTrainingImages:]
 
 # TRAINING LABELS
 
-make sure to convert labels to numbers
-"""
+
 # import data, read into df
-#HandInfoData = pd.read_csv("HandInfo - HandInfo.csv")
-"""
+HandInfoData = pd.read_csv("HandInfo - HandInfo.csv")
+
 handInfo = pd.DataFrame(HandInfoData)
 
 #I only imported the first 229 photos
 handInfo = handInfo[0:50]
-"""
-#handLabel = handInfo["aspectOfHand"]
+
+handLabel = handInfo["aspectOfHand"]
 
 #make array
-#training_labels = np.asarray(handLabel)
+training_labels = np.asarray(handLabel)
 
-#len(training_labels)
+len(training_labels)
 
 
 
@@ -83,7 +82,7 @@ handInfo = handInfo[0:50]
 
 
 
-"""
+
 #   WHILE LOOP FOR CONVERTING EACH IMAGE
 
 # We need a list of the arrays for each image
@@ -98,12 +97,13 @@ for image in imageNameList:
 
     if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
         print("loading images here")
+
         # load the image and make the image black and white and resize them so they are all 96x96 pixels
         image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96))
         #Hiiiii is the problem that you need 2 backslashes between each folder?
         # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
-        #data = asarray(image)
-        #images.append(data)
+        data = asarray(image)
+        images.append(data)
     
     # IF WE WANT TO ONLY DO A SUBSET
     #iterate in the while loop
@@ -114,11 +114,11 @@ for image in imageNameList:
 
 
 # If we want to see any of the images we can run:
-#plt.imshow(images[0])
+plt.imshow(images[0])
 
 # Convert the list of images to an array
-#listOfImages = np.asarray(images)
-#print(len(listOfImages))
+listOfImages = np.asarray(images)
+print(len(listOfImages))
 
 # notes on github
 # it wouldn't push and had issues -- solved with https://stackoverflow.com/questions/46175462/vs-code-git-push-is-not-pushing-the-code-to-remote
