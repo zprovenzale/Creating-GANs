@@ -55,6 +55,12 @@ trainingLabels = imageLabels[:numTrainingImages]
 testImageNames = imageNameList[numTrainingImages:]
 testLabels = imageLabels[numTrainingImages:]
 
+#makes testlabels and traininglabels into np arrays that can be used in tensorflow
+testLabels = np.asarray(testLabels)
+print(type(testLabels))
+trainingLabels = np.asarray(trainingLabels) 
+print(type(trainingLabels))
+
 
 
 #   FOR LOOP FOR CONVERTING EACH IMAGE
@@ -76,7 +82,7 @@ for image in trainingImageNames:
         if i % 100 == 0: 
             print("loading training image number", i)
         # load the image and make the image black and white and resize them so they are all 96x96 pixels
-        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96))
+        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((128,128))
         #Hiiiii is the problem that you need 2 backslashes between each folder?
         # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
         data = asarray(image)
@@ -146,8 +152,8 @@ testImages = testImages / 255.0
 
 #####define model#####
 #for sources on how we did this, look at tensorflow tutorial 
-model = tf.keras.models.Sequential([tf.keras.layers.Flatten(96, 96),
-                                    tf.keras.Dense(128, activation=tf.nn.relu),
+model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),
+                                    tf.keras.layers.Dense(128, activation=tf.nn.relu),
                                     tf.keras.layers.Dense(4, activation=tf.nn.softmax)])
 
 ########define model######
@@ -167,3 +173,9 @@ print('done testing')
 # notes on github
 # it wouldn't push and had issues -- solved with https://stackoverflow.com/questions/46175462/vs-code-git-push-is-not-pushing-the-code-to-remote
 # also look at https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
+
+#first change: size of image increase fro, 96 to 128
+#second change: epoch to 10 instead of 5 (changed back)
+#third: changed loss to loss_fn
+#changed loss to binary_crossentropy (this one did HORRIBle and also threw an error (ValueError I am unsure on what to do about this))
+#tried categorical crossentropy (also had huge lossed and an error)
