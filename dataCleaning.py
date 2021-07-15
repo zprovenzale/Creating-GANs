@@ -123,3 +123,4 @@ for image in imageNameList:
 # notes on github
 # it wouldn't push and had issues -- solved with https://stackoverflow.com/questions/46175462/vs-code-git-push-is-not-pushing-the-code-to-remote
 # also look at https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
+"""
