@@ -124,7 +124,6 @@ for image in testImageNames:
 
 
 
-
 # If we want to see any of the images we can run:
 plt.imshow(testImages[0])
 
