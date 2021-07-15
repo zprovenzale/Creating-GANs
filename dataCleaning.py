@@ -28,24 +28,23 @@ imageLabelsFull = Handdf['aspectOfHand']
 # palmar right - 2
 # palmar left - 3
 
-def replaceLabel(string, num):
-    newLabels = [sub.replace(string, str(num)) for sub in imageLabelsFull]
-    for numStr in newLabels:
-        numStr = int(numStr)
-    return newLabels
-
-imageLabels = replaceLabel('dorsal right', 0)
-imageLabels = replaceLabel('dorsal left', 1)
-imageLabels = replaceLabel('palmar right', 2)
-imageLabels = replaceLabel('palmar left', 3)
-
-hi = map(replaceLabel, (('dorsal right', 0), ('dorsal left', 1), ('palmar right', 2), ('palmar left', 3))) #help with map() from https://www.w3schools.com/python/ref_func_map.asp
-imageLabels = list(hi)
-print(imageLabels[0:20])
+imageLabels = []
+for entry in imageLabelsFull:
+    if entry == 'dorsal right':
+        imageLabels.append(0)
+    elif entry == 'dorsal left':
+        imageLabels.append(1)
+    elif entry == 'palmar right':
+        imageLabels.append(2)
+    elif entry == 'palmar left':
+        imageLabels.append(3)
+    else:
+        print("Not one of the four categories wtf")
 
 
 
-numTrainingImages = 9000
+
+numTrainingImages = 5000
 
 trainingImageNames = imageNameList[:numTrainingImages]
 training_labels = imageLabels[:numTrainingImages]
