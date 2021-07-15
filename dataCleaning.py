@@ -63,7 +63,7 @@ testLabels = imageLabels[numTrainingImages:]
 
 # We need a list of the arrays for each image
 trainingImages = []
-# i = 0 # If we want to run a subset of images, break after that num is reached
+i = 0 # If we want to run a subset of images, break after that num is reached
 for image in trainingImageNames:
 
     imageName = str(image)
@@ -72,8 +72,9 @@ for image in trainingImageNames:
     # used to check whether the specified path (the path is just a parameter, in this case we use image but path can essentially be any object) is an existing regular file or not
 
     if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
-        print("loading images here")
-
+        #this is to keep track of what image we are on
+        if i % 100 == 0: 
+            print("loading training image number", i)
         # load the image and make the image black and white and resize them so they are all 96x96 pixels
         image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96))
         #Hiiiii is the problem that you need 2 backslashes between each folder?
@@ -83,9 +84,9 @@ for image in trainingImageNames:
     else:
         print("wtf")
     
-    # IF WE WANT TO ONLY DO A SUBSET
-    #iterate in the while loop
-    #i +=1
+    # IF WE WANT TO ONLY DO A SUBSET (also to keep track of what we are on)
+    #iterate in the for loop
+    i +=1
 
     #if i >100:
     #    break
@@ -107,7 +108,7 @@ for image in testImageNames:
     if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
         #this is to keep track of what image we are on
         if i % 100 == 0: 
-            print("loading image number", i)
+            print("loading test image number", i)
         # load the image and make the image black and white and resize them so they are all 96x96 pixels
         image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96))
         #Hiiiii is the problem that you need 2 backslashes between each folder?
@@ -117,8 +118,8 @@ for image in testImageNames:
     else:
         print("wtf")
     
-    # IF WE WANT TO ONLY DO A SUBSET
-    #iterate in the while loop
+    # IF WE WANT TO ONLY DO A SUBSET (also to keep track of what we are on)
+    #iterate in the while loop 
     i +=1
 
     #if i >100:
