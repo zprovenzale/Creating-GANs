@@ -96,7 +96,7 @@ for image in trainingImageNames:
 
 # We need a list of the arrays for each image
 testImages = []
-# i = 0 # If we want to run a subset of images, break after that num is reached
+i = 0 # If we want to run a subset of images, break after that num is reached
 for image in testImageNames:
 
     imageName = str(image)
@@ -105,8 +105,9 @@ for image in testImageNames:
     # used to check whether the specified path (the path is just a parameter, in this case we use image but path can essentially be any object) is an existing regular file or not
 
     if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
-        print("loading images here")
-
+        #this is to keep track of what image we are on
+        if i % 100 == 0: 
+            print("loading image number", i)
         # load the image and make the image black and white and resize them so they are all 96x96 pixels
         image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96))
         #Hiiiii is the problem that you need 2 backslashes between each folder?
@@ -118,7 +119,7 @@ for image in testImageNames:
     
     # IF WE WANT TO ONLY DO A SUBSET
     #iterate in the while loop
-    #i +=1
+    i +=1
 
     #if i >100:
     #    break
@@ -126,18 +127,18 @@ for image in testImageNames:
 
 
 # If we want to see any of the images we can run:
-plt.imshow(testImages[0])
+#plt.imshow(testImages[0])
 
 # Convert the lists of images to an array
 trainingImages = np.asarray(trainingImages)
 testImages = np.asarray(testImages)
 
 #adding trainingImages and testImages to the global list networkData to be used in other files
-print(len(trainingImages))
-print(len(testImages))
+print('this is the length of the training images', len(trainingImages))
+print('this is the length of the testing images', len(testImages))
 
 
-#NEURAL NETWORK TRAINING
+######NEURAL NETWORK TRAINING########
 #making each value in the numpy array between 0 and 1
 trainingImages = trainingImages / 255.0
 testImages = testImages / 255.0
