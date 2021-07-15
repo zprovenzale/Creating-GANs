@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os # help with path from https://careerkarma.com/blog/python-check-if-file-exists/
 from numpy import asarray
+import tensorflow as tf
 
 
 #Read hand csv
@@ -130,8 +131,36 @@ plt.imshow(testImages[0])
 # Convert the lists of images to an array
 trainingImages = np.asarray(trainingImages)
 testImages = np.asarray(testImages)
+
+#adding trainingImages and testImages to the global list networkData to be used in other files
 print(len(trainingImages))
 print(len(testImages))
+
+
+#NEURAL NETWORK TRAINING
+#making each value in the numpy array between 0 and 1
+trainingImages = trainingImages / 255.0
+testImages = testImages / 255.0
+
+#####define model#####
+#for sources on how we did this, look at tensorflow tutorial 
+model = tf.keras.models.Sequential([tf.keras.layers.Flatten(96, 96),
+                                    tf.keras.Dense(128, activation=tf.nn.relu),
+                                    tf.keras.layers.Dense(4, activation=tf.nn.softmax)])
+
+########define model######
+model.compile(optimizer = tf.keras.optimizers.Adam(),
+                loss = 'sparse_categorical_crossentropy',
+                metrics = ['accuracy'])
+
+######training guidlines######
+model.fit(trainingImages, trainingLabels, epochs = 5)
+print('done training')
+
+######test model#######
+model.evaluate(testImages, testLabels)
+print('done testing')
+
 
 # notes on github
 # it wouldn't push and had issues -- solved with https://stackoverflow.com/questions/46175462/vs-code-git-push-is-not-pushing-the-code-to-remote
