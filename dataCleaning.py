@@ -6,7 +6,7 @@ import pandas as pd
 
 from PIL import Image # Help with images from https://www.pluralsight.com/guides/importing-image-data-into-numpy-arrays
 import numpy as np 
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import os # help with path from https://careerkarma.com/blog/python-check-if-file-exists/
 from numpy import asarray
 
