@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import os # help with path from https://careerkarma.com/blog/python-check-if-file-exists/
 from numpy import asarray
 import tensorflow as tf
+from tensorflow.python.ops.gen_nn_ops import Conv2D
 
 
 #Read hand csv
@@ -152,9 +153,14 @@ testImages = testImages / 255.0
 
 #####define model#####
 #for sources on how we did this, look at tensorflow tutorial 
-model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),
-                                    tf.keras.layers.Dense(128, activation=tf.nn.relu),
+model = tf.keras.models.Sequential([tf.keras.layers.Conv2D(64, (3, 3), activation = 'relu',
+                                        input_shape = (5000, 200, 200, 1)),
+                                    tf.keras.layers.MaxPooling2D(2, 2),
+                                    tf.keras.layers.Flatten(),
+                                    tf.keras.layers.Dense(128, activation=tf.nn.relu), #changed from 128 to 400
                                     tf.keras.layers.Dense(4, activation=tf.nn.softmax)])
+
+model.summary()
 
 ########define model######
 model.compile(optimizer = tf.keras.optimizers.Adam(),
