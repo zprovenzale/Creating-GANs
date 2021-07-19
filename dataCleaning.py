@@ -82,7 +82,7 @@ for image in trainingImageNames:
         if i % 100 == 0: 
             print("loading training image number", i)
         # load the image and make the image black and white and resize them so they are all 96x96 pixels
-        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((128,128))
+        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((200,200)) #CHANGE BOTH BABE
         #Hiiiii is the problem that you need 2 backslashes between each folder?
         # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
         data = asarray(image)
@@ -116,7 +116,7 @@ for image in testImageNames:
         if i % 100 == 0: 
             print("loading test image number", i)
         # load the image and make the image black and white and resize them so they are all 96x96 pixels
-        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((96,96))
+        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((200,200)) #CHANGE BOTH BABE
         #Hiiiii is the problem that you need 2 backslashes between each folder?
         # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
         data = asarray(image)
