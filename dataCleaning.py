@@ -75,8 +75,9 @@ else:
     writeToFile()
 
 #Saves array of the numpy array version of the images to a .txt file
-def writeToFile():
-    placeholder = 0
+def writeToFile(array):
+    for i in range(len(array)):
+        array[i] = np.array_str(array[i])
     #convert each np array to a string
     #convert array of strings to a string
     #save string to file
