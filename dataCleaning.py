@@ -76,12 +76,16 @@ else:
 
 #Saves array of the numpy array version of the images to a .txt file
 def writeToFile():
+    placeholder = 0
     #convert each np array to a string
     #convert array of strings to a string
     #save string to file
 
 #turns .txt file into an array of the numpy array version of images
 def readFromFile():
+    file = open(r"C:\Users\hvclab\Desktop\Creating-GANs\numpyArrayImages\\" + npImgsFileName,"r")
+    npImages = file.readLines() #BRO YOU MIGHT NEED TO CHANGE THIS if numpy arrays use new lines you will need a different way to separate them. But they prooooobably don't and this is fine
+    file.close()
     #open file
     #copy to string
     #close file?
