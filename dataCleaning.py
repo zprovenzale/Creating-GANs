@@ -20,13 +20,23 @@ incNailPolish = 0 #include nail polish in images, 1 for yes, 0 for no
 
 numTrainingImages = 5000 #sets the number of images we want to be training
 
-#name of the text file that stores or will store an array of the cleaned numpy array version of files
+#name of the text file that stores or will store an list of the cleaned numpy array version of files
 npImgsFileName = "npImgs" + str(numPixels) + "px" + str(incIrregs) + "i" + str(incAccessories) + "a" + str(incNailPolish) + "n" + ".txt"
 
 #Saves array of the numpy array version of the images to a .txt file
-def writeToFile(array):
-    for i in range(len(array)):
-        array[i] = np.array_str(array[i])
+def writeToFile(list):
+    for i in range(len(list)):
+        list[i] = np.array_str(list[i])
+
+    # string = ""
+    # for i in array:
+    #     string += i + "\n"
+    #string += "\n" I'm not sure if we need this. Java does but I thiiiink python doesn't
+
+    file = open(npImgsFileName, "w")
+    file.writeLines(list)
+    file.close()
+
     #convert each np array to a string
     #convert array of strings to a string
     #save string to file
