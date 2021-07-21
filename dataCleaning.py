@@ -169,7 +169,8 @@ print(type(trainingLabels))
 
 if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\numpyArrayImages\\" + npImgsFileName):
     npImages = readFromFile()
-    #separate into training and testing images
+    trainingImages = npImages[:numTrainingImages]
+    testImages = npImages[numTrainingImages:]
 else:
     cleanImages()
     writeToFile()
