@@ -23,57 +23,6 @@ numTrainingImages = 5000 #sets the number of images we want to be training
 #name of the text file that stores or will store an array of the cleaned numpy array version of files
 npImgsFileName = "npImgs" + str(numPixels) + "px" + str(incIrregs) + "i" + str(incAccessories) + "a" + str(incNailPolish) + "n" + ".txt"
 
-#Read hand csv
-Handdf = pd.read_csv('HandInfo - HandInfo.csv')
-
-#We want to filter out accessories and nail polish
-Handdf = Handdf.query('accessories == ' + str(incAccessories) + ' & nailPolish == ' + str(incNailPolish) + ' & irregularities == ' + str(incIrregs)) #creates a new dataframe
-
-# Then get a series of the image name column and the labels (i.e. "aspect of hand")
-imageNameList = Handdf['imageName']
-imageLabelsFull = Handdf['aspectOfHand']
-
-#Convert image labels into numbers instead of strings -- method from https://www.geeksforgeeks.org/python-replace-substring-in-list-of-strings/
-# dorsal right - 0
-# dorsal left - 1
-# palmar right - 2
-# palmar left - 3
-
-imageLabels = []
-for entry in imageLabelsFull:
-    if entry == 'dorsal right':
-        imageLabels.append(0)
-    elif entry == 'dorsal left':
-        imageLabels.append(1)
-    elif entry == 'palmar right':
-        imageLabels.append(2)
-    elif entry == 'palmar left':
-        imageLabels.append(3)
-    else:
-        print("Not one of the four categories wtf")
-
-
-#makes a list of all the images and labels we use for training. this makes a list of the first 5000 images
-trainingImageNames = imageNameList[:numTrainingImages]
-trainingLabels = imageLabels[:numTrainingImages]
-
-#makes a list of all the images and labels used for training. this makes a list of the remaining ~2000 images
-testImageNames = imageNameList[numTrainingImages:]
-testLabels = imageLabels[numTrainingImages:]
-
-#makes testlabels and traininglabels into np arrays that can be used in tensorflow
-testLabels = np.asarray(testLabels)
-print(type(testLabels))
-trainingLabels = np.asarray(trainingLabels) 
-print(type(trainingLabels))
-
-if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\numpyArrayImages\\" + npImgsFileName):
-    readFromFile()
-    #separate into training and testing images
-else:
-    cleanImages()
-    writeToFile()
-
 #Saves array of the numpy array version of the images to a .txt file
 def writeToFile(array):
     for i in range(len(array)):
@@ -172,6 +121,58 @@ def cleanImages():
     # Convert the lists of images to an array
     trainingImages = np.asarray(trainingImages)
     testImages = np.asarray(testImages)
+
+#Read hand csv
+Handdf = pd.read_csv('HandInfo - HandInfo.csv')
+
+#We want to filter out accessories and nail polish
+Handdf = Handdf.query('accessories == ' + str(incAccessories) + ' & nailPolish == ' + str(incNailPolish) + ' & irregularities == ' + str(incIrregs)) #creates a new dataframe
+
+# Then get a series of the image name column and the labels (i.e. "aspect of hand")
+imageNameList = Handdf['imageName']
+imageLabelsFull = Handdf['aspectOfHand']
+
+#Convert image labels into numbers instead of strings -- method from https://www.geeksforgeeks.org/python-replace-substring-in-list-of-strings/
+# dorsal right - 0
+# dorsal left - 1
+# palmar right - 2
+# palmar left - 3
+
+imageLabels = []
+for entry in imageLabelsFull:
+    if entry == 'dorsal right':
+        imageLabels.append(0)
+    elif entry == 'dorsal left':
+        imageLabels.append(1)
+    elif entry == 'palmar right':
+        imageLabels.append(2)
+    elif entry == 'palmar left':
+        imageLabels.append(3)
+    else:
+        print("Not one of the four categories wtf")
+
+
+#makes a list of all the images and labels we use for training. this makes a list of the first 5000 images
+trainingImageNames = imageNameList[:numTrainingImages]
+trainingLabels = imageLabels[:numTrainingImages]
+
+#makes a list of all the images and labels used for training. this makes a list of the remaining ~2000 images
+testImageNames = imageNameList[numTrainingImages:]
+testLabels = imageLabels[numTrainingImages:]
+
+#makes testlabels and traininglabels into np arrays that can be used in tensorflow
+testLabels = np.asarray(testLabels)
+print(type(testLabels))
+trainingLabels = np.asarray(trainingLabels) 
+print(type(trainingLabels))
+
+if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\numpyArrayImages\\" + npImgsFileName):
+    readFromFile()
+    #separate into training and testing images
+else:
+    cleanImages()
+    writeToFile()
+
 
 #adding trainingImages and testImages to the global list networkData to be used in other files
 print('this is the length of the training images', len(trainingImages))
