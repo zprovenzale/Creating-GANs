@@ -18,6 +18,8 @@ incIrregs = 0 #include irregularities in images, 1 for yes, 0 for no
 incAccessories = 0 #include accessories in images, 1 for yes, 0 for no
 incNailPolish = 0 #include nail polish in images, 1 for yes, 0 for no
 
+numTrainingImages = 5000 #sets the number of images we want to be training
+
 #name of the text file that stores or will store an array of the cleaned numpy array version of files
 npImgsFileName = "npImgs" + str(numPixels) + "px" + str(incIrregs) + "i" + str(incAccessories) + "a" + str(incNailPolish) + "n" + ".txt"
 
@@ -50,10 +52,6 @@ for entry in imageLabelsFull:
     else:
         print("Not one of the four categories wtf")
 
-
-
-#sets the number of images we want to be training
-numTrainingImages = 5000
 
 #makes a list of all the images and labels we use for training. this makes a list of the first 5000 images
 trainingImageNames = imageNameList[:numTrainingImages]
