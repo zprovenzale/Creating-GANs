@@ -74,12 +74,13 @@ else:
     cleanImages()
     writeToFile()
 
-
+#Saves array of the numpy array version of the images to a .txt file
 def writeToFile():
     #convert each np array to a string
     #convert array of strings to a string
     #save string to file
 
+#turns .txt file into an array of the numpy array version of images
 def readFromFile():
     #open file
     #copy to string
@@ -88,6 +89,7 @@ def readFromFile():
     #change each string in array to a numpy array
     #return that array
 
+#Converts images to an array of numpy arrays
 def cleanImages():
     #   FOR LOOP FOR CONVERTING EACH IMAGE
 
