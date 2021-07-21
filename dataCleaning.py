@@ -86,12 +86,11 @@ def readFromFile():
     file = open(r"C:\Users\hvclab\Desktop\Creating-GANs\numpyArrayImages\\" + npImgsFileName,"r")
     npImages = file.readLines() #BRO YOU MIGHT NEED TO CHANGE THIS if numpy arrays use new lines you will need a different way to separate them. But they prooooobably don't and this is fine
     file.close()
-    #open file
-    #copy to string
-    #close file?
-    #change string to an array of strings
-    #change each string in array to a numpy array
-    #return that array
+
+    for i in range(len(npImages)):
+        npImages[i] = np.fromString(npImages[i])
+
+    return npImages
 
 #Converts images to an array of numpy arrays
 def cleanImages():
