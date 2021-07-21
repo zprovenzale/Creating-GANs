@@ -117,6 +117,7 @@ def cleanImages():
             image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((200,200)) #CHANGE BOTH BABE
             # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
             data = asarray(image)
+            image.close()
             trainingImages.append(data)
         else:
             print("wtf")
@@ -151,6 +152,7 @@ def cleanImages():
             #Hiiiii is the problem that you need 2 backslashes between each folder?
             # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
             data = asarray(image)
+            image.close()
             testImages.append(data)
         else:
             print("wtf")
