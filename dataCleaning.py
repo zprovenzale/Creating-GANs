@@ -28,23 +28,14 @@ def writeToFile(list):
     for i in range(len(list)):
         list[i] = np.array_str(list[i])
 
-    # string = ""
-    # for i in array:
-    #     string += i + "\n"
-    #string += "\n" I'm not sure if we need this. Java does but I thiiiink python doesn't
-
     file = open(npImgsFileName, "w")
-    file.writeLines(list)
+    file.writelines(list)
     file.close()
-
-    #convert each np array to a string
-    #convert array of strings to a string
-    #save string to file
 
 #turns .txt file into an array of the numpy array version of images
 def readFromFile():
     file = open(r"C:\Users\hvclab\Desktop\Creating-GANs\numpyArrayImages\\" + npImgsFileName,"r")
-    npImages = file.readLines() #BRO YOU MIGHT NEED TO CHANGE THIS if numpy arrays use new lines you will need a different way to separate them. But they prooooobably don't and this is fine
+    npImages = file.readlines() #BRO YOU MIGHT NEED TO CHANGE THIS if numpy arrays use new lines you will need a different way to separate them. But they prooooobably don't and this is fine
     file.close()
 
     for i in range(len(npImages)):
