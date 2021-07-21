@@ -69,6 +69,18 @@ print(type(testLabels))
 trainingLabels = np.asarray(trainingLabels) 
 print(type(trainingLabels))
 
+def writeToFile():
+    #convert each np array to a string
+    #convert array of strings to a string
+    #save string to file
+
+def readFromFile():
+    #open file
+    #copy to string
+    #close file?
+    #change string to an array of strings
+    #change each string in array to a numpy array
+    #return that array
 
 #   FOR LOOP FOR CONVERTING EACH IMAGE
 
