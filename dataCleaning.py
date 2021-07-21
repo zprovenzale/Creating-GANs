@@ -25,8 +25,7 @@ npImgsFileName = "npImgs" + str(numPixels) + "px" + str(incIrregs) + "i" + str(i
 Handdf = pd.read_csv('HandInfo - HandInfo.csv')
 
 #We want to filter out accessories and nail polish
-Handdf = Handdf.query('accessories == 0 & nailPolish == 0 & irregularities == 0') #creates a new dataframe
-
+Handdf = Handdf.query('accessories == ' + str(incAccessories) + ' & nailPolish == ' + str(incNailPolish) + ' & irregularities == ' + str(incIrregs)) #creates a new dataframe
 
 # Then get a series of the image name column and the labels (i.e. "aspect of hand")
 imageNameList = Handdf['imageName']
