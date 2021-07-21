@@ -43,7 +43,7 @@ def readFromFile():
 
     return npImages
 
-#Converts images to an array of numpy arrays
+#Converts images to a list of numpy arrays
 def cleanImages():
     #   FOR LOOP FOR CONVERTING EACH IMAGE
 
