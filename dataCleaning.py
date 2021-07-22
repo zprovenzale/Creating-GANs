@@ -147,8 +147,6 @@ print(type(trainingLabels))
 #Otherwise, turn the images into numpy arrays to use this time and save it in case we need it again
 if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName):
     readFromFile()
-    trainingImages = npImages[:numTrainingImages]
-    testImages = npImages[numTrainingImages:]
 else:
     n = 0
     for image in trainingImageNames:
