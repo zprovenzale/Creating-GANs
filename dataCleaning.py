@@ -37,6 +37,7 @@ def writeToFile():
     for i in range(len(testImages)):
         list.append(np.array_str(testImages[i]))
 
+    #Saves the string we just made to a file
     file = open(npImgsFileName, "w")
     file.writelines(list)
     file.close()
@@ -95,6 +96,12 @@ def imgToNpArray(image):
     # If we want to see any of the images we can run:
     #plt.imshow(testImages[0])
 
+#######################################################################
+#######################################################################
+#######################################################################
+#DRIVER STARTS HERE
+
+
 #Read hand csv
 Handdf = pd.read_csv('HandInfo - HandInfo.csv')
 
@@ -104,6 +111,7 @@ Handdf = Handdf.query('accessories == ' + str(incAccessories) + ' & nailPolish =
 # Then get a series of the image name column and the labels (i.e. "aspect of hand")
 imageNameList = Handdf['imageName']
 imageLabelsFull = Handdf['aspectOfHand']
+
 totalNumImgs = len(imageNameList)
 
 #Convert image labels into numbers instead of strings -- method from https://www.geeksforgeeks.org/python-replace-substring-in-list-of-strings/
@@ -124,9 +132,6 @@ for entry in imageLabelsFull:
         imageLabels.append(3)
     else:
         print("Not one of the four categories wtf")
-
-#********************************************************************************
-#DRIVER STARTS HERE
 
 #makes a list of all the images and labels we use for training. this makes a list of the first 5000 images
 trainingImageNames = imageNameList[:numTrainingImages]
