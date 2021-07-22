@@ -64,7 +64,7 @@ def readFromFile():
     #stamtemnts to see if each line is approximately what we expect in size  and stuff
 
 #Converts image to a numpy array
-def cleanImage(image):
+def imgToNpArray(image):
     #   FOR LOOP FOR CONVERTING EACH IMAGE
 
     imageName = str(image)
@@ -152,10 +152,10 @@ if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName):
 else:
     n = 0
     for image in trainingImageNames:
-        data = cleanImage(image)
+        data = imgToNpArray(image)
         trainingImages.append(data)
     for image in testImageNames:
-        data = cleanImage(image)
+        data = imgToNpArray(image)
         trainingImages.append(data)
     writeToFile()
 
