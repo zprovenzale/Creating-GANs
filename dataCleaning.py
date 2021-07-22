@@ -106,7 +106,14 @@ def imgToNpArray(image):
 Handdf = pd.read_csv('HandInfo - HandInfo.csv')
 
 #We want to filter out accessories and nail polish
-Handdf = Handdf.query('accessories == ' + str(incAccessories) + ' & nailPolish == ' + str(incNailPolish) + ' & irregularities == ' + str(incIrregs)) #creates a new dataframe
+queryString = ""
+if (not incAccessories):
+    queryString += 'accessories == ' + str(incAccessories)
+if (not incNailPolish):
+    queryString += ' & nailPolish == ' + str(incNailPolish)
+if (not incIrregs):
+    queryString += ' & irregularities == ' + str(incIrregs)
+Handdf = Handdf.query(queryString) #creates a new dataframe
 
 # Then get a series of the image name column and the labels (i.e. "aspect of hand")
 imageNameList = Handdf['imageName']
