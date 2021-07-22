@@ -125,6 +125,8 @@ for entry in imageLabelsFull:
     else:
         print("Not one of the four categories wtf")
 
+#********************************************************************************
+#DRIVER STARTS HERE
 
 #makes a list of all the images and labels we use for training. this makes a list of the first 5000 images
 trainingImageNames = imageNameList[:numTrainingImages]
@@ -140,8 +142,11 @@ print(type(testLabels))
 trainingLabels = np.asarray(trainingLabels) 
 print(type(trainingLabels))
 
+
+#If we have numpy arrays with the same number of pixels and same filters on file, load that.
+#Otherwise, turn the images into numpy arrays to use this time and save it in case we need it again
 if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName):
-    npImages = readFromFile()
+    readFromFile()
     trainingImages = npImages[:numTrainingImages]
     testImages = npImages[numTrainingImages:]
 else:
