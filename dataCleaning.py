@@ -22,10 +22,10 @@ numTrainingImages = 5000 #sets the number of images we want to be training
 #Initializes variables
 trainingImages = []
 testImages = []
+n = 0
 
 #name of the text file that stores or will store an list of the cleaned numpy array version of files
 npImgsFileName = "npImgs" + str(numPixels) + "px" + str(incIrregs) + "i" + str(incAccessories) + "a" + str(incNailPolish) + "n" + ".txt"
-n = 0
 
 #Saves list of the numpy array version of the images to a .txt file
 def writeToFile():
@@ -48,11 +48,13 @@ def readFromFile():
     #Reads lines from the file one at a time. For the first 5000 (Or however many training images we pick), it
     #adds that line to the trainingImages list. Once we finish with those, adds the rest of the lines to the testImages list
     for i in range(numTrainingImages):
-        trainingImages.append(file.readline()) #BRO YOU MIGHT NEED TO CHANGE THIS if numpy arrays use new lines you will need a different way to separate them. But they prooooobably don't and this is fine
-        trainingImages[i] = np.fromString(trainingImages[i])
+        string = file.readline()
+        npArray = np.fromString(string)
+        trainingImages.append(npArray)
     for i in range(totalNumImgs - numTrainingImages):
-        trainingImages.append(file.readline())
-        trainingImages[i] = np.fromString(trainingImages[i])
+        string = file.readline()
+        npArray = np.fromString(string)
+        testImages.append(npArray)
 
     file.close()
 
