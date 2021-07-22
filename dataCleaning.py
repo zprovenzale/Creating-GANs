@@ -19,6 +19,7 @@ incAccessories = 0 #include accessories in images, 1 for yes, 0 for no
 incNailPolish = 0 #include nail polish in images, 1 for yes, 0 for no
 
 numTrainingImages = 5000 #sets the number of images we want to be training
+n = 0
 
 #Initialize variables
 trainingImages = []
@@ -67,8 +68,8 @@ def cleanImage(image):
 
     if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
         #this is to keep track of what image we are on
-        if i % 100 == 0: 
-            print("loading training image number", i)
+        if n % 100 == 0: 
+            print("loading training image number", n)
         # load the image and make the image black and white and resize them so they are all 96x96 pixels
         image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((200,200)) #CHANGE BOTH BABE
         # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
@@ -80,9 +81,9 @@ def cleanImage(image):
     
     # IF WE WANT TO ONLY DO A SUBSET (also to keep track of what we are on)
     #iterate in the for loop
-    i +=1
+    n +=1
 
-    #if i >100:
+    #if n >100:
     #    break
 
     # If we want to see any of the images we can run:
@@ -138,7 +139,7 @@ if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName):
     trainingImages = npImages[:numTrainingImages]
     testImages = npImages[numTrainingImages:]
 else:
-    i = 0
+    n = 0
     for image in trainingImageNames:
         data = cleanImage(image)
         trainingImages.append(data)
@@ -148,6 +149,7 @@ else:
     writeToFile()
 
 # Convert the lists of images to an array
+#Maybe incorporate this into the file saving situation, I didn't notice these until it was too late
 trainingImages = np.asarray(trainingImages)
 testImages = np.asarray(testImages)
 
