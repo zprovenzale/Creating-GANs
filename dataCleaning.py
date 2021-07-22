@@ -20,6 +20,10 @@ incNailPolish = 0 #include nail polish in images, 1 for yes, 0 for no
 
 numTrainingImages = 5000 #sets the number of images we want to be training
 
+#Initialize variables
+trainingImages = []
+testImages = []
+
 #name of the text file that stores or will store an list of the cleaned numpy array version of files
 npImgsFileName = "npImgs" + str(numPixels) + "px" + str(incIrregs) + "i" + str(incAccessories) + "a" + str(incNailPolish) + "n" + ".txt"
 
@@ -32,16 +36,25 @@ def writeToFile(list):
     file.writelines(list)
     file.close()
 
-#turns .txt file into an array of the numpy array version of images
+#turns .txt file into trainingImages and testImages lists of the numpy array version of images
 def readFromFile():
     file = open(r"C:\Users\hvclab\Desktop\Creating-GANs\numpyArrayImages\\" + npImgsFileName,"r")
-    npImages = file.readlines() #BRO YOU MIGHT NEED TO CHANGE THIS if numpy arrays use new lines you will need a different way to separate them. But they prooooobably don't and this is fine
+    
+    #Reads lines from the file one at a time. For the first 5000 (Or however many training images we pick),
+    #adds that line to the trainingImages list. Once we finish with those, adds the rest of the lines to the
+    #testImages list. If the line we read is the empty string it means we are at the end of the file and we
+    #break out of the for loop
+    for i in range(numTrainingImages):
+        trainingImages.append(file.readline()) #BRO YOU MIGHT NEED TO CHANGE THIS if numpy arrays use new lines you will need a different way to separate them. But they prooooobably don't and this is fine
+        trainingImages[i] = np.fromString(trainingImages[i])
+    for i in range(numTrainingImages): #here numTrainingImages is an arbitrary number that will definitely be bigger than we need, we escape this with breaking for loops are just safer than while loops
+        testImages.append(file.readline())
+        if (testImages[-1] == ""):
+            testImages.pop(-1) #This might not be necessary
+            break
+        trainingImages[i] = np.fromString(trainingImages[i])
+
     file.close()
-
-    for i in range(len(npImages)):
-        npImages[i] = np.fromString(npImages[i])
-
-    return npImages
 
 #Converts images to a list of numpy arrays
 def cleanImages():
