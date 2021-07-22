@@ -28,9 +28,14 @@ testImages = []
 npImgsFileName = "npImgs" + str(numPixels) + "px" + str(incIrregs) + "i" + str(incAccessories) + "a" + str(incNailPolish) + "n" + ".txt"
 
 #Saves array of the numpy array version of the images to a .txt file
-def writeToFile(list):
-    for i in range(len(list)):
-        list[i] = np.array_str(list[i])
+def writeToFile():
+    list = []
+
+    #Goes through each training image and then test image, turns the numpy array into a string, and add it to the list
+    for i in range(numTrainingImages):
+        list.append(np.array_str(trainingImages[i]))
+    for i in range(len(testImages)):
+        list.append(np.array_str(testImages[i]))
 
     file = open(npImgsFileName, "w")
     file.writelines(list)
