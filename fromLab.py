@@ -41,7 +41,6 @@ def writeToFile():
         string += "\n"
         list.append(string)
 
-    #Saves the string we just made to a file
     file = open(npImgsFileName, "w")
     file.writelines(list)
     file.close()
@@ -49,7 +48,7 @@ def writeToFile():
 #turns .txt file into trainingImages and testImages lists of the numpy array version of images
 def readFromFile():
     file = open(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName,"r")
-        string = ""
+    string = ""
     n = 0
     
     #Reads lines from the file one at a time. For the first 5000 (Or however many training images we pick), it
@@ -81,8 +80,7 @@ def readFromFile():
         #print(len(trainingImages))
         #print(i, " n: ", n)
 
-
-
+ 
 
     file.close()
     #TODO add something that makes sure this was done successfully, and that the image here is connected
@@ -102,8 +100,8 @@ def imgToNpArray(image):
 
     if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
         #this is to keep track of what image we are on
-        # if n % 100 == 0: 
-        #     print("loading training image number", n)
+      #  if n % 100 == 0: 
+       #     print("loading training image number", n)
         # load the image and make the image black and white and resize them so they are all 96x96 pixels
         image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((200,200)) #CHANGE BOTH BABE
         # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
@@ -115,7 +113,7 @@ def imgToNpArray(image):
     
     # IF WE WANT TO ONLY DO A SUBSET (also to keep track of what we are on)
     #iterate in the for loop
-    # n +=1
+   # n +=1
 
     #if n >100:
     #    break
@@ -123,29 +121,15 @@ def imgToNpArray(image):
     # If we want to see any of the images we can run:
     #plt.imshow(testImages[0])
 
-#######################################################################
-#######################################################################
-#######################################################################
-#DRIVER STARTS HERE
-
-
 #Read hand csv
 Handdf = pd.read_csv('HandInfo - HandInfo.csv')
 
 #We want to filter out accessories and nail polish
-queryString = ""
-if (not incAccessories):
-    queryString += 'accessories == ' + str(incAccessories)
-if (not incNailPolish):
-    queryString += ' & nailPolish == ' + str(incNailPolish)
-if (not incIrregs):
-    queryString += ' & irregularities == ' + str(incIrregs)
-Handdf = Handdf.query(queryString) #creates a new dataframe
+Handdf = Handdf.query('accessories == ' + str(incAccessories) + ' & nailPolish == ' + str(incNailPolish) + ' & irregularities == ' + str(incIrregs)) #creates a new dataframe
 
 # Then get a series of the image name column and the labels (i.e. "aspect of hand")
 imageNameList = Handdf['imageName']
 imageLabelsFull = Handdf['aspectOfHand']
-
 totalNumImgs = len(imageNameList)
 
 #Convert image labels into numbers instead of strings -- method from https://www.geeksforgeeks.org/python-replace-substring-in-list-of-strings/
@@ -167,6 +151,9 @@ for entry in imageLabelsFull:
     else:
         print("Not one of the four categories wtf")
 
+#********************************************************************************
+#DRIVER STARTS HERE
+
 #makes a list of all the images and labels we use for training. this makes a list of the first 5000 images
 trainingImageNames = imageNameList[:numTrainingImages]
 trainingLabels = imageLabels[:numTrainingImages]
@@ -181,7 +168,6 @@ print(type(testLabels))
 trainingLabels = np.asarray(trainingLabels) 
 print(type(trainingLabels))
 
-
 #If we have numpy arrays with the same number of pixels and same filters on file, load that.
 #Otherwise, turn the images into numpy arrays to use this time and save it in case we need it again
 if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName):
@@ -191,13 +177,13 @@ else:
     for image in trainingImageNames:
         data = imgToNpArray(image)
         trainingImages.append(data)
-                n += 1
+        n += 1
         if (n%100==0):
             print("loading image ", n)
     for image in testImageNames:
         data = imgToNpArray(image)
         trainingImages.append(data)
-                n += 1
+        n += 1
         if (n%100==0):
             print("loading image ", n)
     writeToFile()
