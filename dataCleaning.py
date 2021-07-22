@@ -12,23 +12,22 @@ from numpy import asarray
 import tensorflow as tf
 from tensorflow.python.ops.gen_nn_ops import Conv2D
 
-#set image traits
+#sets parameter type variables
 numPixels = 200 #number of pixels on each side of square
 incIrregs = 0 #include irregularities in images, 1 for yes, 0 for no
 incAccessories = 0 #include accessories in images, 1 for yes, 0 for no
 incNailPolish = 0 #include nail polish in images, 1 for yes, 0 for no
-
 numTrainingImages = 5000 #sets the number of images we want to be training
-n = 0
 
-#Initialize variables
+#Initializes variables
 trainingImages = []
 testImages = []
 
 #name of the text file that stores or will store an list of the cleaned numpy array version of files
 npImgsFileName = "npImgs" + str(numPixels) + "px" + str(incIrregs) + "i" + str(incAccessories) + "a" + str(incNailPolish) + "n" + ".txt"
+n = 0
 
-#Saves array of the numpy array version of the images to a .txt file
+#Saves list of the numpy array version of the images to a .txt file
 def writeToFile():
     list = []
 
