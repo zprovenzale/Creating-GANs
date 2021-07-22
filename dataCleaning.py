@@ -33,9 +33,13 @@ def writeToFile():
 
     #Goes through each training image and then test image, turns the numpy array into a string, and add it to the list
     for i in range(numTrainingImages):
-        list.append(np.array_str(trainingImages[i]))
+        string = np.array_str(trainingImages[i])
+        string += "\n"
+        list.append(string)
     for i in range(len(testImages)):
-        list.append(np.array_str(testImages[i]))
+        string = np.array_str(testImages[i])
+        string += "\n"
+        list.append(string)
 
     #Saves the string we just made to a file
     file = open(npImgsFileName, "w")
