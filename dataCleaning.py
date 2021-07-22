@@ -38,20 +38,15 @@ def writeToFile(list):
 
 #turns .txt file into trainingImages and testImages lists of the numpy array version of images
 def readFromFile():
-    file = open(r"C:\Users\hvclab\Desktop\Creating-GANs\numpyArrayImages\\" + npImgsFileName,"r")
+    file = open(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName,"r")
     
-    #Reads lines from the file one at a time. For the first 5000 (Or however many training images we pick),
-    #adds that line to the trainingImages list. Once we finish with those, adds the rest of the lines to the
-    #testImages list. If the line we read is the empty string it means we are at the end of the file and we
-    #break out of the for loop
+    #Reads lines from the file one at a time. For the first 5000 (Or however many training images we pick), it
+    #adds that line to the trainingImages list. Once we finish with those, adds the rest of the lines to the testImages list
     for i in range(numTrainingImages):
         trainingImages.append(file.readline()) #BRO YOU MIGHT NEED TO CHANGE THIS if numpy arrays use new lines you will need a different way to separate them. But they prooooobably don't and this is fine
         trainingImages[i] = np.fromString(trainingImages[i])
-    for i in range(numTrainingImages): #here numTrainingImages is an arbitrary number that will definitely be bigger than we need, we escape this with breaking for loops are just safer than while loops
-        testImages.append(file.readline())
-        if (testImages[-1] == ""):
-            testImages.pop(-1) #This might not be necessary
-            break
+    for i in range(totalNumImgs - numTrainingImages):
+        trainingImages.append(file.readline())
         trainingImages[i] = np.fromString(trainingImages[i])
 
     file.close()
@@ -145,6 +140,7 @@ Handdf = Handdf.query('accessories == ' + str(incAccessories) + ' & nailPolish =
 # Then get a series of the image name column and the labels (i.e. "aspect of hand")
 imageNameList = Handdf['imageName']
 imageLabelsFull = Handdf['aspectOfHand']
+totalNumImgs = len(imageNameList)
 
 #Convert image labels into numbers instead of strings -- method from https://www.geeksforgeeks.org/python-replace-substring-in-list-of-strings/
 # dorsal right - 0
