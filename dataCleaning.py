@@ -191,9 +191,15 @@ else:
     for image in trainingImageNames:
         data = imgToNpArray(image)
         trainingImages.append(data)
+                n += 1
+        if (n%100==0):
+            print("loading image ", n)
     for image in testImageNames:
         data = imgToNpArray(image)
         trainingImages.append(data)
+                n += 1
+        if (n%100==0):
+            print("loading image ", n)
     writeToFile()
 
 # Convert the lists of images to an array
