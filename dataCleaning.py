@@ -181,7 +181,7 @@ print(type(testLabels))
 trainingLabels = np.asarray(trainingLabels) 
 print(type(trainingLabels))
 
-if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\numpyArrayImages\\" + npImgsFileName):
+if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName):
     npImages = readFromFile()
     trainingImages = npImages[:numTrainingImages]
     testImages = npImages[numTrainingImages:]
