@@ -49,17 +49,40 @@ def writeToFile():
 #turns .txt file into trainingImages and testImages lists of the numpy array version of images
 def readFromFile():
     file = open(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName,"r")
+        string = ""
+    n = 0
     
     #Reads lines from the file one at a time. For the first 5000 (Or however many training images we pick), it
     #adds that line to the trainingImages list. Once we finish with those, adds the rest of the lines to the testImages list
-    for i in range(numTrainingImages):
-        string = file.readline()
-        npArray = np.fromString(string)
-        trainingImages.append(npArray)
+    for i in range(500000):
+        line = file.readline()
+        if (line[:2] == "[["):
+            npArray = np.fromstring(string)
+            trainingImages.append(npArray)
+            string = ""
+            n += 1
+            if (n == numTrainingImages):
+                break
+        string += line
+        #print("string: ", string)
+        #print(len(trainingImages))
+        #print(i, " n: ", n)
     for i in range(totalNumImgs - numTrainingImages):
-        string = file.readline()
-        npArray = np.fromString(string)
-        testImages.append(npArray)
+        line = file.readline()
+        if (line == ""):
+            break
+        if (line[:2] == "[["):
+            npArray = np.fromstring(string)
+            testImages.append(npArray)
+            string = ""
+            n += 1
+        string += line
+        #print("string: ", string)
+        #print(len(trainingImages))
+        #print(i, " n: ", n)
+
+
+
 
     file.close()
     #TODO add something that makes sure this was done successfully, and that the image here is connected
