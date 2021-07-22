@@ -56,84 +56,37 @@ def readFromFile():
 
     file.close()
 
-#Converts images to a list of numpy arrays
-def cleanImages():
+#Converts image to a numpy array
+def cleanImage(image):
     #   FOR LOOP FOR CONVERTING EACH IMAGE
 
-    #TRAINING IMAGES
+    imageName = str(image)
 
-    # We need a list of the arrays for each image
-    trainingImages = []
-    i = 0 # If we want to run a subset of images, break after that num is reached
-    for image in trainingImageNames:
+    # Check if the image exists (some might not for human error reasons) 
+    # used to check whether the specified path (the path is just a parameter, in this case we use image but path can essentially be any object) is an existing regular file or not
 
-        imageName = str(image)
+    if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
+        #this is to keep track of what image we are on
+        if i % 100 == 0: 
+            print("loading training image number", i)
+        # load the image and make the image black and white and resize them so they are all 96x96 pixels
+        image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((200,200)) #CHANGE BOTH BABE
+        # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
+        data = asarray(image)
+        image.close()
+        return data
+    else:
+        print("wtf")
+    
+    # IF WE WANT TO ONLY DO A SUBSET (also to keep track of what we are on)
+    #iterate in the for loop
+    i +=1
 
-        # Check if the image exists (some might not for human error reasons) 
-        # used to check whether the specified path (the path is just a parameter, in this case we use image but path can essentially be any object) is an existing regular file or not
-
-        if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
-            #this is to keep track of what image we are on
-            if i % 100 == 0: 
-                print("loading training image number", i)
-            # load the image and make the image black and white and resize them so they are all 96x96 pixels
-            image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((200,200)) #CHANGE BOTH BABE
-            # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
-            data = asarray(image)
-            image.close()
-            trainingImages.append(data)
-        else:
-            print("wtf")
-        
-        # IF WE WANT TO ONLY DO A SUBSET (also to keep track of what we are on)
-        #iterate in the for loop
-        i +=1
-
-        #if i >100:
-        #    break
-
-
-
-    # TESTING IMAGES
-
-    # We need a list of the arrays for each image
-    testImages = []
-    i = 0 # If we want to run a subset of images, break after that num is reached
-    for image in testImageNames:
-
-        imageName = str(image)
-
-        # Check if the image exists (some might not for human error reasons) 
-        # used to check whether the specified path (the path is just a parameter, in this case we use image but path can essentially be any object) is an existing regular file or not
-
-        if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName):
-            #this is to keep track of what image we are on
-            if i % 100 == 0: 
-                print("loading test image number", i)
-            # load the image and make the image black and white and resize them so they are all 96x96 pixels
-            image = Image.open(r"C:\Users\hvclab\Desktop\Creating-GANs\Hands\\" + imageName).convert('L').resize((200,200)) #CHANGE BOTH BABE
-            # convert image to numpy array (numpy arrays are like a two dimensional way to store data and know its location)
-            data = asarray(image)
-            image.close()
-            testImages.append(data)
-        else:
-            print("wtf")
-        
-        # IF WE WANT TO ONLY DO A SUBSET (also to keep track of what we are on)
-        #iterate in the while loop 
-        i +=1
-
-        #if i >100:
-        #    break
-
-
+    #if i >100:
+    #    break
 
     # If we want to see any of the images we can run:
     #plt.imshow(testImages[0])
-
-    # Convert the lists of images to an array
-    trainingImages = np.asarray(trainingImages)
-    testImages = np.asarray(testImages)
 
 #Read hand csv
 Handdf = pd.read_csv('HandInfo - HandInfo.csv')
@@ -185,8 +138,18 @@ if os.path.isfile(r"C:\Users\hvclab\Desktop\Creating-GANs\\" + npImgsFileName):
     trainingImages = npImages[:numTrainingImages]
     testImages = npImages[numTrainingImages:]
 else:
-    cleanImages()
+    i = 0
+    for image in trainingImageNames:
+        data = cleanImage(image)
+        trainingImages.append(data)
+    for image in testImageNames:
+        data = cleanImage(image)
+        trainingImages.append(data)
     writeToFile()
+
+# Convert the lists of images to an array
+trainingImages = np.asarray(trainingImages)
+testImages = np.asarray(testImages)
 
 
 #adding trainingImages and testImages to the global list networkData to be used in other files
