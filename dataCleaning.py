@@ -57,6 +57,11 @@ def readFromFile():
         testImages.append(npArray)
 
     file.close()
+    #TODO add something that makes sure this was done successfully, and that the image here is connected
+    #to the right image name and other data. Perhaps by checking the length of the lists and pick a few images
+    #as a sample and test if they're name connection is right. Right now we are just depending on the index in the
+    #arrays to match and there are enough in between steps that we want to be careful. We could also add some if 
+    #stamtemnts to see if each line is approximately what we expect in size  and stuff
 
 #Converts image to a numpy array
 def cleanImage(image):
